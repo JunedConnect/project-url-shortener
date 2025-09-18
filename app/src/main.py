@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 import os, hashlib, time
-from .ddb import put_mapping, get_mapping
+from ddb import put_mapping, get_mapping # I removed the .ddb and replaced it with ddb since there was a path issue as python could not locate the ddb.py file
 
 app = FastAPI()
 

@@ -19,6 +19,7 @@
 
 FROM python:3.12-alpine AS builder
 
+# For the TABLE_NAME, change this value to the DynamoDB table name
 ENV PYTHONPATH=/app \
     TABLE_NAME=changeme
 
@@ -26,9 +27,11 @@ WORKDIR /app
 
 COPY requirements.txt .
 
+RUN pip install -r requirements.txt
+
 COPY ./src/. .
 
-RUN pip install -r requirements.txt
+# COPY ./tests/. .
 
 # CMD ["which", "uvicorn"]
 
