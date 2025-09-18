@@ -3,25 +3,25 @@ variable "name" {
   type        = string
 }
 
-variable "target_group_name" {
-  description = "Name of the target group"
-  type        = string
-}
+# variable "target_group_name" {
+#   description = "Name of the target group"
+#   type        = string
+# }
 
-variable "target_group_port" {
-  description = "Port for the target group"
-  type        = number
-}
+# variable "target_group_port" {
+#   description = "Port for the target group"
+#   type        = number
+# }
 
-variable "target_group_protocol" {
-  description = "Protocol for the target group"
-  type        = string
-}
+# variable "target_group_protocol" {
+#   description = "Protocol for the target group"
+#   type        = string
+# }
 
-variable "target_group_target_type" {
-  description = "Target type for the target group"
-  type        = string
-}
+# variable "target_group_target_type" {
+#   description = "Target type for the target group"
+#   type        = string
+# }
 
 variable "vpc-cidr-block" {
   description = "CIDR block for the VPC"

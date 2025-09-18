@@ -23,16 +23,16 @@ ecs_platform_version            = "LATEST"
 ecs_scheduling_strategy         = "REPLICA"
 ecs_desired_count               = 1
 ecs_container_name              = "container"
-ecs_container_port              = 3000
-ecs_task_family                 = "Threat-Composer-Tool-TD"
+ecs_container_port              = 8080
+ecs_task_family                 = "url-shortener"
 ecs_task_requires_compatibilities = ["FARGATE"]
 ecs_network_mode                = "awsvpc"
 ecs_cpu                         = 512
 ecs_memory                      = 1024
-ecs_container_image             = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/threat-composer-tool:latest"
+ecs_container_image             = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener"
 ecs_container_cpu              = 256
 ecs_container_memory           = 512
-ecs_container_host_port        = 3000
+ecs_container_host_port        = 8080
 
 # Route53
 domain_name                     = "app.juned.co.uk"
@@ -41,7 +41,7 @@ dns_ttl                         = 60
 
 # VPC
 target_group_name               = "TG"
-target_group_port               = 3000
+target_group_port               = 8080
 target_group_protocol           = "HTTP"
 target_group_target_type        = "ip"
 

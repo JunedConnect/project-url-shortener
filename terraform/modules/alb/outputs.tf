@@ -18,3 +18,7 @@ output "LCT-ALB-DNS" {
 output "LCT-ALB-ZONE-ID" {
     value = aws_lb.LCT-ALB.zone_id
 }
+
+output "aws_lb_target_group-ID" {
+    value = aws_lb_target_group.this.id
+}

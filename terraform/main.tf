@@ -1,7 +1,6 @@
 module "alb" {
     source = "./modules/alb"
     security_group_id = module.vpc.LCT-SG-ID
-    target_group_id = module.vpc.aws_lb_target_group-ID
     certificate_arn = module.route53.certificate_arn
     public-subnet-ids = module.vpc.public-subnet-ids
 
@@ -11,13 +10,20 @@ module "alb" {
     listener_port_http           = var.listener_port_http
     listener_protocol_http       = var.listener_protocol_http
     listener_port_https          = var.listener_port_https
-    listener_protocol_https      = var.listener_protocol_https  
+    listener_protocol_https      = var.listener_protocol_https
+
+    vpc_id = module.vpc.vpc_id
+
+    target_group_name              = var.target_group_name
+    target_group_port              = var.target_group_port
+    target_group_protocol          = var.target_group_protocol
+    target_group_target_type       = var.target_group_target_type
 }
 
 module "ecs" {
     source = "./modules/ecs"
     security_group_id = module.vpc.LCT-SG-ID
-    target_group_id = module.vpc.aws_lb_target_group-ID
+    target_group_id = module.alb.aws_lb_target_group-ID
     private-subnet-ids = module.vpc.private-subnet-ids
 
     ecs_cluster_name               = var.ecs_cluster_name
@@ -51,11 +57,6 @@ module "route53" {
 
 module "vpc" {
   source = "./modules/vpc"
-
-  target_group_name              = var.target_group_name
-  target_group_port              = var.target_group_port
-  target_group_protocol          = var.target_group_protocol
-  target_group_target_type       = var.target_group_target_type
 
   name                           = var.name
   vpc-cidr-block                 = var.vpc-cidr-block

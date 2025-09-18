@@ -30,7 +30,19 @@ resource "aws_alb_listener" "ListenerSSL" {
   certificate_arn = var.certificate_arn
    
   default_action {
-    target_group_arn = var.target_group_id
+    target_group_arn = aws_lb_target_group.this.id
     type             = "forward"
+  }
+}
+
+resource "aws_lb_target_group" "this" {
+  name        = var.target_group_name
+  port        = var.target_group_port
+  protocol    = var.target_group_protocol
+  target_type = var.target_group_target_type
+  vpc_id      = var.vpc_id
+  health_check {
+    enabled = "true"
+    path = "/healthz"
   }
 }

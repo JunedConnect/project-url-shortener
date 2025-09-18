@@ -9,7 +9,7 @@ variable "target_group_id" {
 }
 
 variable "private-subnet-ids" {
-  description = "List of subnet IDs where the ECS service will run"
+  description = "List of private subnet IDs"
   type        = list(string)
 }
 

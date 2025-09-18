@@ -3,11 +3,6 @@ variable "security_group_id" {
   type        = string
 }
 
-variable "target_group_id" {
-  description = "Target Group ID for ALB"
-  type        = string
-}
-
 variable "certificate_arn" {
   description = "ARN of the ACM certificate for ALB"
   type        = string
@@ -50,5 +45,31 @@ variable "listener_port_https" {
 
 variable "listener_protocol_https" {
   description = "Protocol for the HTTPS listener"
+  type        = string
+}
+
+variable "vpc_id" {
+  description = "ID for the VPC"
+  type        = string
+
+}
+
+variable "target_group_name" {
+  description = "Name of the target group"
+  type        = string
+}
+
+variable "target_group_port" {
+  description = "Port for the target group"
+  type        = number
+}
+
+variable "target_group_protocol" {
+  description = "Protocol for the target group"
+  type        = string
+}
+
+variable "target_group_target_type" {
+  description = "Target type for the target group"
   type        = string
 }

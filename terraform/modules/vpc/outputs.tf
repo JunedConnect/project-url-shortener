@@ -2,11 +2,6 @@ output "LCT-SG-ID" {
     value = aws_security_group.this.id
 }
 
-output "aws_lb_target_group-ID" {
-    value = aws_lb_target_group.this.id
-}
-
-
 output "vpc_id" {
   value = aws_vpc.this.id
 }
