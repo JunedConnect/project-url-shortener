@@ -95,16 +95,17 @@ resource "aws_iam_role_policy_attachment" "ecs-policy-attachment-dynamodb" {
 
 
 resource "aws_dynamodb_table" "this" {
-    name           = "changeme"
-    hash_key       = "id"
-    billing_mode = "PAY_PER_REQUEST"
+    name           = var.dynamodb_table_name
+    hash_key       = var.dynamodb_hash_key_name
+    billing_mode   = var.dynamodb_billing_mode
     point_in_time_recovery {
-        enabled = "true"
+        enabled = var.dynamodb_pitr_enabled
     }
 
+    # Hash key attribute definition
     attribute {
-        name = "id"
-        type = "S"
+        name = var.dynamodb_attribute_name
+        type = var.dynamodb_attribute_type
     }
 
 }

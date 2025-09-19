@@ -13,8 +13,8 @@ variable "public-subnet-ids" {
   type        = list(string)
 }
 
-variable "alb_name" {
-  description = "Name of the Application Load Balancer"
+variable "name" {
+  description = "Resource Name"
   type        = string
 }
 

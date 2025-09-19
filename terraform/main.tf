@@ -4,7 +4,7 @@ module "alb" {
     certificate_arn = module.route53.certificate_arn
     public-subnet-ids = module.vpc.public-subnet-ids
 
-    name                           = var.name
+    name                         = var.name
     alb_internal                 = var.alb_internal
     alb_load_balancer_type       = var.alb_load_balancer_type
     listener_port_http           = var.listener_port_http
@@ -43,6 +43,13 @@ module "ecs" {
     ecs_container_cpu              = var.ecs_container_cpu
     ecs_container_memory           = var.ecs_container_memory
     ecs_container_host_port        = var.ecs_container_host_port
+
+    dynamodb_table_name            = var.dynamodb_table_name
+    dynamodb_hash_key_name         = var.dynamodb_hash_key_name
+    dynamodb_attribute_name        = var.dynamodb_attribute_name
+    dynamodb_attribute_type        = var.dynamodb_attribute_type
+    dynamodb_billing_mode          = var.dynamodb_billing_mode
+    dynamodb_pitr_enabled          = var.dynamodb_pitr_enabled
 }
 
 module "route53" {
