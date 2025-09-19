@@ -1,10 +1,10 @@
 module "alb" {
     source = "./modules/alb"
-    security_group_id = module.vpc.LCT-SG-ID
+    security_group_id = module.vpc.security_group_id
     certificate_arn = module.route53.certificate_arn
     public-subnet-ids = module.vpc.public-subnet-ids
 
-    alb_name                     = var.alb_name
+    name                           = var.name
     alb_internal                 = var.alb_internal
     alb_load_balancer_type       = var.alb_load_balancer_type
     listener_port_http           = var.listener_port_http
@@ -22,11 +22,11 @@ module "alb" {
 
 module "ecs" {
     source = "./modules/ecs"
-    security_group_id = module.vpc.LCT-SG-ID
-    target_group_id = module.alb.aws_lb_target_group-ID
+    security_group_id = module.vpc.security_group_id
+    target_group_id = module.alb.target_group_id
     private-subnet-ids = module.vpc.private-subnet-ids
 
-    ecs_cluster_name               = var.ecs_cluster_name
+    name                           = var.name
     ecs_service_name               = var.ecs_service_name
     ecs_launch_type                = var.ecs_launch_type
     ecs_platform_version           = var.ecs_platform_version
@@ -47,8 +47,8 @@ module "ecs" {
 
 module "route53" {
     source = "./modules/route53"
-    alb_dns_name = module.alb.LCT-ALB-DNS
-    alb_zone_id = module.alb.LCT-ALB-ZONE-ID
+    alb_dns_name = module.alb.alb_dns_name
+    alb_zone_id = module.alb.alb_zone_id
 
     domain_name          = var.domain_name
     validation_method    = var.validation_method

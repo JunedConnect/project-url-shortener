@@ -1,3 +1,8 @@
+variable "name" {
+  description = "Resource Name"
+  type        = string
+}
+
 variable "security_group_id" {
   description = "Security Group ID for ECS"
   type        = string
@@ -11,11 +16,6 @@ variable "target_group_id" {
 variable "private-subnet-ids" {
   description = "List of private subnet IDs"
   type        = list(string)
-}
-
-variable "ecs_cluster_name" {
-  description = "Name of the ECS cluster"
-  type        = string
 }
 
 variable "ecs_service_name" {

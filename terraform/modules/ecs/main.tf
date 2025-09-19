@@ -1,15 +1,15 @@
-resource "aws_ecs_cluster" "TCT-Cluster" {
-  name = var.ecs_cluster_name
+resource "aws_ecs_cluster" "this" {
+  name = var.name
 
 }
 
 
-resource "aws_ecs_service" "TCD-Service" {
-  name                               = var.ecs_cluster_name
+resource "aws_ecs_service" "this" {
+  name                               = var.name
   launch_type                        = var.ecs_launch_type
   platform_version                   = var.ecs_platform_version
-  cluster                            = aws_ecs_cluster.TCT-Cluster.id
-  task_definition                    = aws_ecs_task_definition.TCD-TD.id
+  cluster                            = aws_ecs_cluster.this.id
+  task_definition                    = aws_ecs_task_definition.this.id
   scheduling_strategy                = var.ecs_scheduling_strategy
   desired_count                      = var.ecs_desired_count
 
@@ -28,11 +28,11 @@ resource "aws_ecs_service" "TCD-Service" {
 }
 
 
-resource "aws_ecs_task_definition" "TCD-TD" {
+resource "aws_ecs_task_definition" "this" {
   family                   = var.ecs_task_family
   requires_compatibilities = var.ecs_task_requires_compatibilities
-  task_role_arn            = aws_iam_role.ecs_task_execution_role.arn
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = aws_iam_role.ecs.arn
+  execution_role_arn       = aws_iam_role.ecs.arn
   network_mode             = var.ecs_network_mode
   cpu                      = var.ecs_cpu
   memory                   = var.ecs_memory
@@ -65,8 +65,8 @@ resource "aws_ecs_task_definition" "TCD-TD" {
 
 
 
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecs-task-execution-role"
+resource "aws_iam_role" "ecs" {
+  name = "ecs"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -83,14 +83,14 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-execution-policy-attachment-main" {
+resource "aws_iam_role_policy_attachment" "ecs-policy-attachment-main" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-  role       = aws_iam_role.ecs_task_execution_role.name
+  role       = aws_iam_role.ecs.name
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-execution-policy-attachment-dynamodb" {
+resource "aws_iam_role_policy_attachment" "ecs-policy-attachment-dynamodb" {
   policy_arn = aws_iam_policy.dynamodb-table-access.arn
-  role       = aws_iam_role.ecs_task_execution_role.name
+  role       = aws_iam_role.ecs.name
 }
 
 

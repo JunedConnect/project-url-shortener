@@ -14,9 +14,12 @@ listener_port_http              = "80"
 listener_protocol_http          = "HTTP"
 listener_port_https             = "443"
 listener_protocol_https         = "HTTPS"
+target_group_name               = "TG"
+target_group_port               = 8080
+target_group_protocol           = "HTTP"
+target_group_target_type        = "ip"
 
 # ECS
-ecs_cluster_name                = "this"
 ecs_service_name                = "MyService"
 ecs_launch_type                 = "FARGATE"
 ecs_platform_version            = "LATEST"
@@ -40,11 +43,6 @@ validation_method               = "DNS"
 dns_ttl                         = 60
 
 # VPC
-target_group_name               = "TG"
-target_group_port               = 8080
-target_group_protocol           = "HTTP"
-target_group_target_type        = "ip"
-
 vpc-cidr-block                 = "10.0.0.0/16"
 publicsubnet1-cidr-block       = "10.0.1.0/24"
 publicsubnet2-cidr-block       = "10.0.2.0/24"

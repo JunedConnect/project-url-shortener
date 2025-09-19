@@ -1,5 +1,5 @@
- resource "aws_lb" "LCT-ALB" {
-  name               = var.alb_name
+ resource "aws_lb" "this" {
+  name               = var.name
   internal           = var.alb_internal
   load_balancer_type = var.alb_load_balancer_type
   security_groups    = [var.security_group_id]
@@ -7,8 +7,8 @@
 }
 
 
-resource "aws_alb_listener" "Listener" {
-  load_balancer_arn = aws_lb.LCT-ALB.id
+resource "aws_alb_listener" "this" {
+  load_balancer_arn = aws_lb.this.id
   port              = var.listener_port_http
   protocol          = var.listener_protocol_http
 
@@ -23,8 +23,8 @@ resource "aws_alb_listener" "Listener" {
 }
 
 
-resource "aws_alb_listener" "ListenerSSL" {
-  load_balancer_arn = aws_lb.LCT-ALB.id
+resource "aws_alb_listener" "this-ssl" {
+  load_balancer_arn = aws_lb.this.id
   port              = var.listener_port_https
   protocol          = var.listener_protocol_https
   certificate_arn = var.certificate_arn

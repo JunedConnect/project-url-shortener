@@ -1,24 +1,11 @@
-output "LCT-ALB-ID" {
-    value = aws_lb.LCT-ALB.id
+output "alb_dns_name" {
+    value = aws_lb.this.dns_name
 }
 
-output "Listener-ID" {
-    value = aws_alb_listener.Listener.id
+output "alb_zone_id" {
+    value = aws_lb.this.zone_id
 }
 
-output "ListenerSSL-ID" {
-    value = aws_alb_listener.ListenerSSL.id
-}
-
-
-output "LCT-ALB-DNS" {
-    value = aws_lb.LCT-ALB.dns_name
-}
-
-output "LCT-ALB-ZONE-ID" {
-    value = aws_lb.LCT-ALB.zone_id
-}
-
-output "aws_lb_target_group-ID" {
+output "target_group_id" {
     value = aws_lb_target_group.this.id
 }

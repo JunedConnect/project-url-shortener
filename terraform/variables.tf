@@ -20,12 +20,6 @@ variable "aws-tags" {
 
 # ALB
 
-variable "alb_name" {
-  description = "Name of the Application Load Balancer"
-  type        = string
-  default     = "Threat-Composer-Tool-ALB"
-}
-
 variable "alb_internal" {
   description = "Whether the ALB is internal or not"
   type        = bool
@@ -64,12 +58,6 @@ variable "listener_protocol_https" {
 
 
 # ECS
-
-variable "ecs_cluster_name" {
-  description = "Name of the ECS cluster"
-  type        = string
-  default     = "Threat-Composer-Tool-Cluster"
-}
 
 variable "ecs_service_name" {
   description = "Name of the ECS service"
@@ -116,7 +104,7 @@ variable "ecs_container_port" {
 variable "ecs_task_family" {
   description = "Task family for ECS task definition"
   type        = string
-  default     = "Threat-Composer-Tool-TD"
+  default     = "url-shortener"
 }
 
 variable "ecs_task_requires_compatibilities" {
@@ -146,7 +134,7 @@ variable "ecs_memory" {
 variable "ecs_container_image" {
   description = "Docker image for ECS container"
   type        = string
-  default     = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/threat-composer-tool:latest"
+  default     = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener"
 }
 
 variable "ecs_container_cpu" {
@@ -173,7 +161,7 @@ variable "ecs_container_host_port" {
 variable "domain_name" {
   description = "The domain name for the hosted zone"
   type        = string
-  default     = "url.juned.co.uk"
+  default     = "app.juned.co.uk"
 }
 
 variable "validation_method" {
@@ -194,13 +182,13 @@ variable "dns_ttl" {
 variable "target_group_name" {
   description = "Name of the target group"
   type        = string
-  default     = "Threat-Composer-Tool-TG"
+  default     = "TG"
 }
 
 variable "target_group_port" {
   description = "Port for the target group"
   type        = number
-  default     = 80
+  default     = 8080
 }
 
 variable "target_group_protocol" {
