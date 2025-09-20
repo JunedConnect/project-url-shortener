@@ -304,3 +304,24 @@ variable "route-cidr-block" {
   type        = string
   default     = "0.0.0.0/0"
 }
+
+
+# WAF
+
+variable "waf_cloudwatch_metrics_enabled" {
+  description = "Whether CloudWatch metrics are enabled for WAF visibility config"
+  type        = bool
+  default     = true
+}
+
+variable "waf_sampled_requests_enabled" {
+  description = "Whether sampled requests are enabled for WAF visibility config"
+  type        = bool
+  default     = true
+}
+
+variable "waf_metric_name" {
+  description = "Metric name for WAF visibility config"
+  type        = string
+  default     = "waf-protections"
+}

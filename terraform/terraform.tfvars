@@ -61,3 +61,8 @@ subnet-map-public-ip-on-launch = true
 availability-zone-1            = "eu-west-2a"
 availability-zone-2            = "eu-west-2b"
 route-cidr-block               = "0.0.0.0/0"
+
+# WAF
+waf_cloudwatch_metrics_enabled = true
+waf_sampled_requests_enabled   = true
+waf_metric_name                = "waf-protection"
