@@ -52,8 +52,8 @@ resource "aws_ecs_task_definition" "this" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = "/ecs/${var.ecs_task_family}" #fix the variables everywhere
-          awslogs-region        = "eu-west-2" #make this into a variable
+          awslogs-group         = "/ecs/${var.ecs_task_family}"
+          awslogs-region        = "eu-west-2"
           awslogs-stream-prefix = "ecs"
           awslogs-create-group  = "true"
         }
@@ -102,7 +102,6 @@ resource "aws_dynamodb_table" "this" {
         enabled = var.dynamodb_pitr_enabled
     }
 
-    # Hash key attribute definition
     attribute {
         name = var.dynamodb_attribute_name
         type = var.dynamodb_attribute_type

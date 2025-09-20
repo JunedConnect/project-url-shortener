@@ -7,7 +7,7 @@ resource "aws_security_group" "this" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-   cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -74,15 +74,15 @@ resource "aws_subnet" "privatesubnet2" {
 
 }
 
+# the below nat-gateway is no longer needed as I have set up VPC Endpoints that will handle internal access to AWS Services
+# resource "aws_nat_gateway" "ng" {
+#   subnet_id     = aws_subnet.publicsubnet1.id
+#   allocation_id = aws_eip.eip.id
+# }
 
-resource "aws_nat_gateway" "ng" {
-  subnet_id     = aws_subnet.publicsubnet1.id
-  allocation_id = aws_eip.eip.id
-}
-
-
-resource "aws_eip" "eip" {
-}
+# the below eip is no longer needed as I have set up VPC Endpoints that will handle internal access to AWS Services
+# resource "aws_eip" "eip" {
+# }
 
 
 resource "aws_internet_gateway" "ig" {
@@ -113,10 +113,11 @@ resource "aws_route_table_association" "public-rta2" {
 
 resource "aws_route_table" "private-rt" {
   vpc_id = aws_vpc.this.id
-  route {
-    cidr_block = var.route-cidr-block
-    gateway_id = aws_nat_gateway.ng.id
-  }
+  # the below route is no longer needed as I have set up VPC Endpoints that will handle internal access to AWS Services
+  # route {
+  #   cidr_block = var.route-cidr-block
+  #   gateway_id = aws_nat_gateway.ng.id
+  # }
 }
 
 
@@ -129,4 +130,63 @@ resource "aws_route_table_association" "private-rta1" {
 resource "aws_route_table_association" "private-rta2" {
   subnet_id      = aws_subnet.privatesubnet2.id
   route_table_id = aws_route_table.private-rt.id
+}
+
+resource "aws_security_group" "vpc-endpoint" {
+  name        = "vpc-endpoint"
+  description = "vpc-endpoint"
+  vpc_id      = aws_vpc.this.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    security_groups = [aws_security_group.this.id]
+  }
+}
+
+# DynamoDB (gateway)
+resource "aws_vpc_endpoint" "dynamodb" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.eu-west-2.dynamodb"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = [aws_route_table.private-rt.id]
+}
+
+# S3 (gateway)
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.eu-west-2.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = [aws_route_table.private-rt.id]
+}
+
+# ECR API (interface)
+resource "aws_vpc_endpoint" "ecr_api" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.eu-west-2.ecr.api"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = [aws_subnet.privatesubnet1.id, aws_subnet.privatesubnet2.id]
+  security_group_ids = [aws_security_group.vpc-endpoint.id]
+  private_dns_enabled = true
+}
+
+# ECR Docker (interface)
+resource "aws_vpc_endpoint" "ecr_dkr" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.eu-west-2.ecr.dkr"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = [aws_subnet.privatesubnet1.id, aws_subnet.privatesubnet2.id]
+  security_group_ids = [aws_security_group.vpc-endpoint.id]
+  private_dns_enabled = true
+}
+
+# CloudWatch Logs (interface)
+resource "aws_vpc_endpoint" "logs" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.eu-west-2.logs"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = [aws_subnet.privatesubnet1.id, aws_subnet.privatesubnet2.id]
+  security_group_ids = [aws_security_group.vpc-endpoint.id]
+  private_dns_enabled = true
 }
