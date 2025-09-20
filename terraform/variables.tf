@@ -323,5 +323,5 @@ variable "waf_sampled_requests_enabled" {
 variable "waf_metric_name" {
   description = "Metric name for WAF visibility config"
   type        = string
-  default     = "waf-protections"
+  default     = "waf-protection"
 }
