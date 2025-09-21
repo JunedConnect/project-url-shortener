@@ -48,7 +48,7 @@ variable "ecs_container_name" {
   type        = string
 }
 
-variable "ecs_container_port" {
+variable "ecs_container_container_port" {
   description = "Container port for ECS service"
   type        = number
 }

@@ -23,7 +23,7 @@ resource "aws_ecs_service" "this" {
   load_balancer {
     target_group_arn = var.target_group_id
     container_name   = var.ecs_container_name
-    container_port   = var.ecs_container_port
+    container_port   = var.ecs_container_container_port
   }
 }
 
@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "this" {
       essential = true
       portMappings = [
         {
-          containerPort = var.ecs_container_port
+          containerPort = var.ecs_container_container_port
           hostPort      = var.ecs_container_host_port
         }
       ]

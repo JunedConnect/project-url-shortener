@@ -33,7 +33,7 @@ module "ecs" {
     ecs_scheduling_strategy        = var.ecs_scheduling_strategy
     ecs_desired_count              = var.ecs_desired_count
     ecs_container_name             = var.ecs_container_name
-    ecs_container_port             = var.ecs_container_port
+    ecs_container_container_port   = var.ecs_container_container_port
     ecs_task_family                = var.ecs_task_family
     ecs_task_requires_compatibilities = var.ecs_task_requires_compatibilities
     ecs_network_mode               = var.ecs_network_mode

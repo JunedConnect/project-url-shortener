@@ -95,10 +95,10 @@ variable "ecs_container_name" {
   default     = "container"
 }
 
-variable "ecs_container_port" {
+variable "ecs_container_container_port" {
   description = "Container port for ECS service"
   type        = number
-  default     = 3000
+  default     = 8080
 }
 
 variable "ecs_task_family" {
@@ -152,7 +152,7 @@ variable "ecs_container_memory" {
 variable "ecs_container_host_port" {
   description = "Host port for the ECS container"
   type        = number
-  default     = 3000
+  default     = 8080
 }
 
 variable "dynamodb_table_name" {
