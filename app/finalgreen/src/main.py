@@ -16,23 +16,23 @@ def home_page():
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
         <title>FinalGreen URL Shortener</title>
         <style>
-            :root { --green-bg: #0b7a3b; --green-dark: #085c2c; --green-light: #11a053; --text: #ffffff; --card: #0f8b45; }
-            html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text); }
-            body { background: linear-gradient(160deg, var(--green-bg), var(--green-dark)); display: flex; align-items: center; justify-content: center; }
+            :root { --green-primary: #0b7a3b; --green-dark: #085c2c; --green-light: #11a053; --green-text: #0b7a3b; --green-border: #11a053; }
+            html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--green-text); background: #ffffff; }
+            body { display: flex; align-items: center; justify-content: center; }
             .container { width: 100%; max-width: 720px; padding: 24px; }
-            .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); padding: 28px; backdrop-filter: blur(6px); }
-            h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 700; letter-spacing: 0.2px; }
-            p.sub { margin: 0 0 24px 0; opacity: 0.85; }
+            .card { background: #ffffff; border: 2px solid var(--green-border); border-radius: 16px; box-shadow: 0 4px 20px rgba(11,122,59,0.1); padding: 28px; }
+            h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 700; letter-spacing: 0.2px; color: var(--green-primary); }
+            p.sub { margin: 0 0 24px 0; color: var(--green-dark); }
             .row { display: flex; gap: 12px; }
-            input[type=url] { flex: 1; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.15); color: #fff; font-size: 16px; outline: none; transition: border 0.2s, box-shadow 0.2s; }
-            input[type=url]::placeholder { color: rgba(255,255,255,0.7); }
-            input[type=url]:focus { border-color: rgba(255,255,255,0.45); box-shadow: 0 0 0 4px rgba(17,160,83,0.25); }
-            button { padding: 14px 18px; border-radius: 12px; border: none; background: var(--green-light); color: #062f18; font-weight: 700; cursor: pointer; transition: transform 0.05s ease, filter 0.2s ease; }
+            input[type=url] { flex: 1; padding: 14px 16px; border-radius: 12px; border: 2px solid var(--green-border); background: #ffffff; color: var(--green-text); font-size: 16px; outline: none; transition: border 0.2s, box-shadow 0.2s; }
+            input[type=url]::placeholder { color: rgba(11,122,59,0.6); }
+            input[type=url]:focus { border-color: var(--green-primary); box-shadow: 0 0 0 4px rgba(17,160,83,0.25); }
+            button { padding: 14px 18px; border-radius: 12px; border: none; background: var(--green-light); color: #ffffff; font-weight: 700; cursor: pointer; transition: transform 0.05s ease, filter 0.2s ease; }
             button:hover { filter: brightness(1.05); }
             button:active { transform: translateY(1px); }
-            .result { margin-top: 20px; padding: 14px 16px; background: rgba(0,0,0,0.18); border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); display: none; }
-            .error { margin-top: 12px; color: #ffdddd; display: none; }
-            a.short { color: #e0ffe9; font-weight: 700; text-decoration: underline; }
+            .result { margin-top: 20px; padding: 14px 16px; background: rgba(17,160,83,0.1); border-radius: 12px; border: 1px solid var(--green-border); display: none; color: var(--green-text); }
+            .error { margin-top: 12px; color: #dc3545; display: none; }
+            a.short { color: var(--green-primary); font-weight: 700; text-decoration: underline; }
             .footer { margin-top: 20px; opacity: 0.7; font-size: 13px; }
         </style>
     </head>
