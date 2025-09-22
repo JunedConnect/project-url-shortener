@@ -14,7 +14,7 @@ def home_page():
     <head>
         <meta charset=\"UTF-8\" />
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
-        <title>FinalGreen URL Shortener</title>
+        <title>URL Shortener</title>
         <style>
             :root { --green-primary: #0b7a3b; --green-dark: #085c2c; --green-light: #11a053; --green-text: #0b7a3b; --green-border: #11a053; }
             html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--green-text); background: #ffffff; }
@@ -39,7 +39,7 @@ def home_page():
     <body>
         <div class=\"container\">
             <div class=\"card\">
-                <h1>FinalGreen URL Shortener</h1>
+                <h1>URL Shortener</h1>
                 <p class=\"sub\">Paste a URL, get a short link you can click.</p>
                 <div class=\"row\">
                     <input id=\"urlInput\" type=\"url\" placeholder=\"https://example.com/very/long/link\" />
@@ -101,9 +101,39 @@ def home_page():
     </html>
     """
 
-@app.get("/healthz")
+@app.get("/healthz", response_class=HTMLResponse)
 def health():
-    return {"status": "ok", "ts": int(time.time())}
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Health Check</title>
+        <style>
+            :root { --green-primary: #0b7a3b; --green-dark: #085c2c; --green-light: #11a053; --green-text: #0b7a3b; --green-border: #11a053; }
+            html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--green-text); background: #ffffff; }
+            body { display: flex; align-items: center; justify-content: center; }
+            .container { width: 100%; max-width: 720px; padding: 24px; }
+            .card { background: #ffffff; border: 2px solid var(--green-border); border-radius: 16px; box-shadow: 0 4px 20px rgba(11,122,59,0.1); padding: 28px; text-align: center; }
+            h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 700; letter-spacing: 0.2px; color: var(--green-primary); }
+            .status { font-size: 18px; color: var(--green-light); font-weight: 600; margin: 20px 0; }
+            .timestamp { font-size: 14px; color: var(--green-dark); opacity: 0.8; }
+            .icon { font-size: 48px; margin-bottom: 16px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="icon">✅</div>
+                <h1>Health Check</h1>
+                <div class="status">Service is healthy</div>
+                <div class="timestamp">Timestamp: """ + str(int(time.time())) + """</div>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
 
 @app.post("/shorten")
 async def shorten(req: Request):

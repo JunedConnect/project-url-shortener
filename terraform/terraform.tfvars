@@ -41,7 +41,6 @@ ecs_container_cpu              = 256
 ecs_container_memory           = 512
 ecs_container_host_port        = 8080
 
-
 dynamodb_table_name      = "url"
 dynamodb_billing_mode    = "PAY_PER_REQUEST"
 dynamodb_pitr_enabled    = true
