@@ -8,8 +8,27 @@ variable "security_group_id" {
   type        = string
 }
 
-variable "target_group_id" {
-  description = "Target Group ID for ECS"
+variable "target_group_id_blue" {
+  description = "Blue Target Group ID for ECS"
+  type        = string
+}
+
+variable "target_group_name_blue" {
+  description = "Name of the Blue target group"
+  type        = string
+}
+variable "target_group_name_green" {
+  description = "Name of the Green target group"
+  type        = string
+}
+
+variable "listener_arn" {
+  description = "Listener Arn"
+  type        = string
+}
+
+variable "listener_ssl_arn" {
+  description = "Listener SSL Arn"
   type        = string
 }
 

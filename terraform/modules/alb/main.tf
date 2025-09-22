@@ -30,19 +30,31 @@ resource "aws_alb_listener" "this-ssl" {
   certificate_arn = var.certificate_arn
    
   default_action {
-    target_group_arn = aws_lb_target_group.this.id
+    target_group_arn = aws_lb_target_group.blue.id
     type             = "forward"
   }
 }
 
-resource "aws_lb_target_group" "this" {
-  name        = var.target_group_name
-  port        = var.target_group_port
+resource "aws_lb_target_group" "blue" {
+  name        = var.target_group_name_blue
+  port        = var.target_group_port_blue
   protocol    = var.target_group_protocol
   target_type = var.target_group_target_type
   vpc_id      = var.vpc_id
   health_check {
     enabled = "true"
-    path = "/healthz"
+    path = var.target_group_health_check_path_blue
+  }
+}
+
+resource "aws_lb_target_group" "green" {
+  name        = var.target_group_name_green
+  port        = var.target_group_port_green
+  protocol    = var.target_group_protocol
+  target_type = var.target_group_target_type
+  vpc_id      = var.vpc_id
+  health_check {
+    enabled = "true"
+    path = var.target_group_health_check_path_green
   }
 }

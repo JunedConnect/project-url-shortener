@@ -56,13 +56,59 @@ variable "listener_protocol_https" {
   default     = "HTTPS"
 }
 
+variable "target_group_name_blue" {
+  description = "Name of the Blue target group"
+  type        = string
+  default     = "blue"
+}
+variable "target_group_name_green" {
+  description = "Name of the Green target group"
+  type        = string
+  default     = "green"
+}
+variable "target_group_port_blue" {
+  description = "Port for the blue target group"
+  type        = number
+  default     = 8080
+}
+
+variable "target_group_port_green" {
+  description = "Port for the green target group"
+  type        = number
+  default     = 8080
+}
+
+variable "target_group_health_check_path_blue" {
+  description = "Health check path for the blue target group"
+  type        = string
+  default     = "/healthz"
+}
+
+variable "target_group_health_check_path_green" {
+  description = "Health check path for the green target group"
+  type        = string
+  default     = "/healthz"
+}
+
+variable "target_group_protocol" {
+  description = "Protocol for the target group"
+  type        = string
+  default     = "HTTP"
+}
+
+variable "target_group_target_type" {
+  description = "Target type for the target group"
+  type        = string
+  default     = "ip"
+}
+
 
 # ECS
 
 variable "ecs_service_name" {
   description = "Name of the ECS service"
   type        = string
-  default     = "MyService"
+  default     = "my-service"
 }
 
 variable "ecs_launch_type" {
@@ -214,30 +260,6 @@ variable "dns_ttl" {
 
 
 #vpc
-
-variable "target_group_name" {
-  description = "Name of the target group"
-  type        = string
-  default     = "TG"
-}
-
-variable "target_group_port" {
-  description = "Port for the target group"
-  type        = number
-  default     = 8080
-}
-
-variable "target_group_protocol" {
-  description = "Protocol for the target group"
-  type        = string
-  default     = "HTTP"
-}
-
-variable "target_group_target_type" {
-  description = "Target type for the target group"
-  type        = string
-  default     = "ip"
-}
 
 variable "vpc-cidr-block" {
   description = "CIDR block for the VPC"

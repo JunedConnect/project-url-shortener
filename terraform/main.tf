@@ -14,8 +14,12 @@ module "alb" {
 
     vpc_id = module.vpc.vpc_id
 
-    target_group_name              = var.target_group_name
-    target_group_port              = var.target_group_port
+    target_group_name_blue         = var.target_group_name_blue
+    target_group_port_blue         = var.target_group_port_blue
+    target_group_health_check_path_blue = var.target_group_health_check_path_blue
+    target_group_name_green        = var.target_group_name_green
+    target_group_port_green        = var.target_group_port_green
+    target_group_health_check_path_green = var.target_group_health_check_path_green
     target_group_protocol          = var.target_group_protocol
     target_group_target_type       = var.target_group_target_type
 }
@@ -23,7 +27,11 @@ module "alb" {
 module "ecs" {
     source = "./modules/ecs"
     security_group_id = module.vpc.security_group_id
-    target_group_id = module.alb.target_group_id
+    target_group_id_blue = module.alb.target_group_id_blue
+    target_group_name_blue = var.target_group_name_blue
+    target_group_name_green = var.target_group_name_green
+    listener_arn = module.alb.listener_arn
+    listener_ssl_arn = module.alb.listener_ssl_arn
     private-subnet-ids = module.vpc.private-subnet-ids
 
     name                           = var.name

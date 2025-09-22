@@ -54,15 +54,36 @@ variable "vpc_id" {
 
 }
 
-variable "target_group_name" {
-  description = "Name of the target group"
+variable "target_group_name_blue" {
+  description = "Name of the Blue target group"
   type        = string
 }
 
-variable "target_group_port" {
-  description = "Port for the target group"
+variable "target_group_name_green" {
+  description = "Name of the Green target group"
+  type        = string
+}
+
+variable "target_group_port_blue" {
+  description = "Port for the blue target group"
   type        = number
 }
+
+variable "target_group_port_green" {
+  description = "Port for the green target group"
+  type        = number
+}
+
+variable "target_group_health_check_path_blue" {
+  description = "Health check path for the blue target group"
+  type        = string
+}
+
+variable "target_group_health_check_path_green" {
+  description = "Health check path for the green target group"
+  type        = string
+}
+
 
 variable "target_group_protocol" {
   description = "Protocol for the target group"

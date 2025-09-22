@@ -1,5 +1,5 @@
 # General
-name   = "test"
+name   = "dev"
 aws-tags = {
   Environment = "dev"
   Owner       = "juned"
@@ -13,15 +13,20 @@ listener_port_http              = "80"
 listener_protocol_http          = "HTTP"
 listener_port_https             = "443"
 listener_protocol_https         = "HTTPS"
-target_group_name               = "TG"
-target_group_port               = 8080
+
+target_group_name_blue          = "blue"
+target_group_port_blue          = 8080
+target_group_health_check_path_blue = "/healthz"
+target_group_name_green         = "green"
+target_group_port_green         = 8080
+target_group_health_check_path_green = "/healthz"
 target_group_protocol           = "HTTP"
 target_group_target_type        = "ip"
 
 # ECS
-ecs_service_name                = "MyService"
+ecs_service_name                = "my-service"
 ecs_launch_type                 = "FARGATE"
-ecs_platform_version            = "LATEST"
+ecs_platform_version            = "1.4.0"
 ecs_scheduling_strategy         = "REPLICA"
 ecs_desired_count               = 1
 ecs_container_name              = "container"
