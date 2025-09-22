@@ -119,6 +119,11 @@ resource "aws_dynamodb_table" "this" {
         type = var.dynamodb_attribute_type
     }
 
+    ttl {
+      attribute_name = var.dynamodb_ttl_attribute_name
+      enabled        = var.dynamodb_ttl_enabled
+    }
+
 }
 
 resource "aws_iam_policy" "dynamodb-table-access" {
@@ -131,7 +136,8 @@ resource "aws_iam_policy" "dynamodb-table-access" {
         Effect = "Allow"
         Action = [
           "dynamodb:GetItem",
-          "dynamodb:PutItem"
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem"
         ]
         Resource = aws_dynamodb_table.this.arn
       }

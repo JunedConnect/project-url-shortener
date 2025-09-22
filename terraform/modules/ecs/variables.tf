@@ -146,3 +146,13 @@ variable "dynamodb_pitr_enabled" {
   description = "Enable point-in-time recovery (PITR)"
   type        = bool
 }
+
+variable "dynamodb_ttl_attribute_name" {
+  description = "DynamoDB TTL attribute name"
+  type        = string
+}
+
+variable "dynamodb_ttl_enabled" {
+  description = "Enable DynamoDB TTL"
+  type        = bool
+}

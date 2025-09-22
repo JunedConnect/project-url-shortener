@@ -180,7 +180,7 @@ variable "ecs_memory" {
 variable "ecs_container_image" {
   description = "Docker image for ECS container"
   type        = string
-  default     = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener"
+  default     = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue"
 }
 
 variable "ecs_container_cpu" {
@@ -233,6 +233,18 @@ variable "dynamodb_billing_mode" {
 
 variable "dynamodb_pitr_enabled" {
   description = "Enable point-in-time recovery (PITR)"
+  type        = bool
+  default     = true
+}
+
+variable "dynamodb_ttl_attribute_name" {
+  description = "DynamoDB TTL attribute name"
+  type        = string
+  default     = "ttl"
+}
+
+variable "dynamodb_ttl_enabled" {
+  description = "Enable DynamoDB TTL"
   type        = bool
   default     = true
 }

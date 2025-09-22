@@ -36,7 +36,7 @@ ecs_task_requires_compatibilities = ["FARGATE"]
 ecs_network_mode                = "awsvpc"
 ecs_cpu                         = 512
 ecs_memory                      = 1024
-ecs_container_image             = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener"
+ecs_container_image             = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue"
 ecs_container_cpu              = 256
 ecs_container_memory           = 512
 ecs_container_host_port        = 8080
@@ -48,6 +48,8 @@ dynamodb_pitr_enabled    = true
 dynamodb_hash_key_name   = "id"
 dynamodb_attribute_name  = "id"
 dynamodb_attribute_type  = "S"
+dynamodb_ttl_attribute_name = "ttl"
+dynamodb_ttl_enabled = true
 
 # Route53
 domain_name                     = "app.juned.co.uk"

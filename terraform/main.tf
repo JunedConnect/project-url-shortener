@@ -58,6 +58,8 @@ module "ecs" {
     dynamodb_attribute_type        = var.dynamodb_attribute_type
     dynamodb_billing_mode          = var.dynamodb_billing_mode
     dynamodb_pitr_enabled          = var.dynamodb_pitr_enabled
+    dynamodb_ttl_attribute_name    = var.dynamodb_ttl_attribute_name
+    dynamodb_ttl_enabled           = var.dynamodb_ttl_enabled
 }
 
 module "route53" {
