@@ -55,6 +55,12 @@ resource "aws_ecs_task_definition" "this" {
       cpu       = var.ecs_container_cpu
       memory    = var.ecs_container_memory
       essential = true
+      environment = [
+        {
+          name  = "TABLE_NAME"
+          value = var.dynamodb_table_name
+        }
+      ]
       portMappings = [
         {
           containerPort = var.ecs_container_container_port
@@ -78,7 +84,7 @@ resource "aws_ecs_task_definition" "this" {
 
 
 resource "aws_iam_role" "ecs" {
-  name = "ecs"
+  name = "${var.name}-ecs"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -127,7 +133,7 @@ resource "aws_dynamodb_table" "this" {
 }
 
 resource "aws_iam_policy" "dynamodb-table-access" {
-  name        = "DynamoDB-table-url-shortener-access"
+  name        = "${var.name}-DynamoDB-table-access"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -203,7 +209,7 @@ resource "aws_codedeploy_deployment_group" "this" {
 }
 
 resource "aws_iam_role" "codedeploy" {
-  name = "codedeploy"
+  name = "${var.name}-codedeploy"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

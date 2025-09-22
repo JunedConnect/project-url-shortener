@@ -166,11 +166,11 @@ resource "aws_wafv2_web_acl_logging_configuration" "this" {
 }
 
 resource "aws_cloudwatch_log_group" "waf" {
-  name = "aws-waf-logs-group"
+  name = "aws-waf-logs-group-${var.name}"
 }
 
 resource "aws_iam_role" "waf" {
-  name = "waf-logging"
+  name = "${var.name}-waf-logging"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
