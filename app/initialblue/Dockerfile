@@ -1,8 +1,7 @@
 FROM python:3.12-alpine
 
-# For the TABLE_NAME, change this value to the DynamoDB table name
-ENV PYTHONPATH=/app \
-    TABLE_NAME=url
+# TABLE_NAME ENV variable will be provided by ECS
+ENV PYTHONPATH=/app
 
 WORKDIR /app
 
