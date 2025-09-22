@@ -127,7 +127,7 @@ resource "aws_dynamodb_table" "this" {
 }
 
 resource "aws_iam_policy" "dynamodb-table-access" {
-  name        = "DynamoDB-table-urlshortener-access"
+  name        = "DynamoDB-table-url-shortener-access"
 
   policy = jsonencode({
     Version = "2012-10-17"

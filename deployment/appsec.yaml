@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "" # enter your desired (i.e. green) task definition arn (with the revision number) here
+        TaskDefinition: "arn:aws:ecs:eu-west-2:677276074604:task-definition/url-shortener:24" # enter your desired (i.e. green) task definition arn (with the revision number) here
         LoadBalancerInfo:
           ContainerName: "container" # this should match the container port of your desirec (i.e. green) task definition revision
           ContainerPort: 8080 # this should match the container port of your desired (i.e. green) task definition revision. Bear in mind that the (green) target group must match this same number
