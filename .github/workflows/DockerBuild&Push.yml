@@ -123,12 +123,7 @@ jobs:
 
             - name: Output Deployment Instructions
               run: |
-                echo "=================================="
                 echo "FinalGreen Image Digest: ${{ steps.push-and-digest.outputs.image_digest }}"
-                echo "=================================="
-                echo "For blue-green deployment:"
-                echo "1. Create a new task definition revision with the new image digest on the AWS Console"
-                echo "2. Note down the task definition arn from the new revision"
-                echo "3. Use AWS CodeDeploy to perform the deployment manually on the console"
-                echo "   Refer to deployment/appspec.yml for the template needed"
-                echo "=================================="
+                echo "::notice title= Blue-Green Deployment Ready::FinalGreen Image Digest: ${{ steps.push-and-digest.outputs.image_digest }}"
+                echo "::notice title= Deployment Steps::1. Create new task definition revision with image digest on AWS Console%0A2. Note down the task definition arn from the new revision%0A3. Use AWS CodeDeploy to perform deployment manually on console%0ARefer to deployment/appspec.yml for template"
+                echo "::set-output name=image_digest::${{ steps.push-and-digest.outputs.image_digest }}"
