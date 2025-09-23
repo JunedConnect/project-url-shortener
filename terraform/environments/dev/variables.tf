@@ -180,7 +180,7 @@ variable "ecs_memory" {
 variable "ecs_container_image" {
   description = "Docker image for ECS container"
   type        = string
-  default     = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue-dev"
+  default     = "677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue"
 }
 
 variable "ecs_container_cpu" {
