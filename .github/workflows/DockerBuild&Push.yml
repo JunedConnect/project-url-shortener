@@ -128,7 +128,5 @@ jobs:
                 echo "**Image Digest:** \`${{ steps.push-and-digest.outputs.image_digest }}\`" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY
                 echo "###  Next Steps for Blue-Green Deployment:" >> $GITHUB_STEP_SUMMARY
-                echo "1. Create a new task definition revision with the new image digest on the AWS Console" >> $GITHUB_STEP_SUMMARY
-                echo "2. Note down the task definition arn from the new revision" >> $GITHUB_STEP_SUMMARY
-                echo "3. Use AWS CodeDeploy to perform the deployment manually on the console" >> $GITHUB_STEP_SUMMARY
-                echo "   - Refer to \`deployment/appspec.yml\` for the template needed" >> $GITHUB_STEP_SUMMARY
+                echo "1. Create a new task definition revision with the new image digest on the AWS Console. Note down the task definition arn from the new revision that you created" >> $GITHUB_STEP_SUMMARY
+                echo "2. Use AWS CodeDeploy to perform the deployment manually on the console (Refer to \`deployment/appspectemplate.yml\` for the template needed)" >> $GITHUB_STEP_SUMMARY
