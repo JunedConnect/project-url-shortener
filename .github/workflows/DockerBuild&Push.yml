@@ -113,6 +113,22 @@ jobs:
                 sarif_file: 'trivy-results-Docker.sarif'
                 wait-for-processing: true
 
-            - name: Push to ECR
+            - name: Push to ECR and Get Image Digest
+              id: push-and-digest
               run: |
                 docker push 677276074604.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:finalgreen
+                IMAGE_DIGEST=$(aws ecr describe-images --repository-name url-shortener --image-ids imageTag=finalgreen --query 'imageDetails[0].imageDigest' --output text)
+                echo "image_digest=$IMAGE_DIGEST" >> $GITHUB_OUTPUT
+                echo "FinalGreen image pushed with digest: $IMAGE_DIGEST"
+
+            - name: Output Deployment Instructions
+              run: |
+                echo "=================================="
+                echo "FinalGreen Image Digest: ${{ steps.push-and-digest.outputs.image_digest }}"
+                echo "=================================="
+                echo "For blue-green deployment:"
+                echo "1. Create a new task definition revision with the new image digest on the AWS Console"
+                echo "2. Note down the task definition arn from the new revision"
+                echo "3. Use AWS CodeDeploy to perform the deployment manually on the console"
+                echo "   Refer to deployment/appspec.yml for the template needed"
+                echo "=================================="
