@@ -76,7 +76,7 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
 1. **Build and Push InitialBlue Image**
    - Go to GitHub Actions → Docker Build & Push → Run workflow
         - Choose "InitialBlue" image
-   - This creates the initial version of the app
+        - This creates the initial version of the app
 
 2. **Deploy Infrastructure**
    - Go to GitHub Actions → Terraform Plan → Run workflow
@@ -84,12 +84,12 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
         - **Review the plan** to ensure everything looks correct
    - Go to GitHub Actions → Terraform Apply → Run workflow
         - **Choose the same environment** that you chose in the Terraform Plan above
-    - This sets up the AWS Infrastructure, including ECS service with the InitialBlue image
+        - This sets up the AWS Infrastructure, including ECS service with the InitialBlue image
 
 3. **Build and Push FinalGreen Image**
    - Go to GitHub Actions → Docker Build & Push → Run workflow
         - Choose "FinalGreen" image
-   - This creates the production-ready version with all features
+        - This creates the production-ready version of the app with all features
 
 4. **Blue-Green Deployment**
    - Create new ECS task definition with the FinalGreen ECR image digest
@@ -99,7 +99,7 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
 5. **Destroy Infrastructure**
    - Go to GitHub Actions → Terraform Destroy → Run workflow
         - **Choose the same environment** used for deployment
-   - This will clean up all AWS resources created by Terraform
+        - This will clean up all AWS resources created by Terraform
 
 
 <br>
@@ -156,7 +156,7 @@ curl "https://your-domain.com/healthz"
 |-------|
 |InitialBlue App:|
 | ![Blue App](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Blue-App.png) |
-|FinalGreen ApplicAppation:|
+|FinalGreen App:|
 | ![Green App](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Green-App.png) |
 |FinalGreen App Health Check:|
 | ![Green App Health](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Green-App-Health.png) |
