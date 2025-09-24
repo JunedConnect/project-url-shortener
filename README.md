@@ -57,7 +57,7 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - Edit `terraform/environments/dev/variables.tf` and `terraform/environments/prod/variables.tf`:
         - Update `ecs_container_image` with your InitialBlue ECR registry address
         - Update `domain_name` with your domain name
-   - Example: `123456789012.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue`
+   - Example: `123456789012.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue` (you will know this value after you have built and pushed your initialblue image through the cicd pipeline)
    - Example: `your-domain.com`
 
 2. **Configure GitHub Actions Variables**
