@@ -1,25 +1,24 @@
 # Blue-Green Genesis
 
-A containerised URL shortener application deployed on AWS ECS with blue-green deployment strategy.
+A containerised URL shortener application deployed on AWS ECS with blue-green deployment strategy. The deployment process is fully automated using a **CI/CD pipeline** that handles Docker image building, vulnerability scanning, and deployment to **different AWS environments** with seperate backend state files.
 
 ## Key Features
 
-- **AWS ECS** - Serverless container orchestration with Fargate
-- **AWS WAF** - Web application firewall protection
-- **AWS Route53** - DNS management and SSL certificate automation
-- **AWS ALB** - Application Load Balancer for traffic routing
+- **ECS** - Serverless container orchestration with Fargate
+- **CodeDeploy** - Automated blue-green deployment orchestration
 - **DynamoDB** - NoSQL database, utilised by the App, used for URL storage with TTL
-- **VPC Endpoints** - Secure connectivity to AWS services
+- **CloudWatch** - Monitoring, logging, and observability for the App and WAF
+- **VPC Endpoints** - Secure internal connectivity to AWS services
+- **Route53** - DNS management and SSL certificate automation
+- **WAF** - Web application firewall protection which sits in front of the ALB
+- **ALB** - Application Load Balancer for traffic routing
+- **Multi-Environment Backends** - Separate Terraform state files for dev and prod AWS environments
 
 <br>
 
 ## Architecture
 
-```
-Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
-                    ↓
-                  WAF Protection
-```
+![AD](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Architecture-Diagram.png)
 
 
 <br>
@@ -49,18 +48,24 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 
 **Before deployment, configure the following:**
 
-1. **Update Terraform Variables**
+1. **Create ECR Private Registry**
+   - Go to AWS Console → ECR → Create repository
+   - Repository name: `url-shortener`
+   - Make it private
+   - Note down the repository URI (e.g., `123456789012.dkr.ecr.eu-west-2.amazonaws.com/url-shortener`)
+
+2. **Update Terraform Variables**
    - Edit `terraform/environments/dev/variables.tf` and `terraform/environments/prod/variables.tf`:
         - Update `ecs_container_image` with your InitialBlue ECR registry address
         - Update `domain_name` with your domain name
-   - Example: `123456789012.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue` (you will know this value after you have built and pushed your initialblue image through the cicd pipeline)
+   - Example: `123456789012.dkr.ecr.eu-west-2.amazonaws.com/url-shortener:initialblue` (you will know this value after you have built and pushed your initialblue image through the cicd pipeline below)
    - Example: `your-domain.com`
 
-2. **Configure GitHub Actions Variables**
+3. **Configure GitHub Actions Variables**
    - Go to GitHub repository → Settings → Secrets and variables → Actions → Variables tab
    - Add the following variables:
-     - `AWS_GITHUB_ROLE_ARN`: Your GitHub Actions IAM role ARN (e.g., `arn:aws:iam::ACCOUNT:role/github-cicd-role`)
-     - `ECR_REGISTRY`: Your ECR registry URL (e.g., `123456789012.dkr.ecr.eu-west-2.amazonaws.com`)
+     - `AWS_GITHUB_ROLE_ARN`: Your GitHub Actions IAM role ARN (e.g., `arn:aws:iam::123456789012:role/github-cicd-role`)
+     - `ECR_REGISTRY`: Your ECR registry URL (e.g., `<123456789012>.dkr.ecr.eu-west-2.amazonaws.com`)
 
 <br>
 
@@ -74,11 +79,12 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - This creates the initial version of the app
 
 2. **Deploy Infrastructure**
-     **Choose one environment** (`dev` or `prod`) and stick with it throughout the deployment
    - Go to GitHub Actions → Terraform Plan → Run workflow
+        - **Choose one environment** (`dev` or `prod`) and stick with it throughout the deployment
         - **Review the plan** to ensure everything looks correct
    - Go to GitHub Actions → Terraform Apply → Run workflow
-        - This sets up the AWS Infrastructure, including ECS service with the InitialBlue image
+        - **Choose the same environment** that you chose in the Terraform Plan above
+    - This sets up the AWS Infrastructure, including ECS service with the InitialBlue image
 
 3. **Build and Push FinalGreen Image**
    - Go to GitHub Actions → Docker Build & Push → Run workflow
@@ -91,8 +97,8 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - Traffic automatically shifts from blue to green environment, with rollback on health check failures
 
 5. **Destroy Infrastructure**
-     **Choose the same environment** used for deployment
    - Go to GitHub Actions → Terraform Destroy → Run workflow
+        - **Choose the same environment** used for deployment
    - This will clean up all AWS resources created by Terraform
 
 
@@ -104,8 +110,6 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 
 - **InitialBlue**: Basic URL shortening functionality
 - **FinalGreen**: Full-featured version with modern UI
-
-<br>
 
 ### Web Interface
 
@@ -145,3 +149,22 @@ curl "https://your-domain.com/{short_id}"
 ```bash
 curl "https://your-domain.com/healthz"
 ```
+
+<br>
+
+|Here's what it will look like:|
+|-------|
+|InitialBlue App:|
+| ![Blue App](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Blue-App.png) |
+|FinalGreen ApplicAppation:|
+| ![Green App](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Green-App.png) |
+|FinalGreen App Health Check:|
+| ![Green App Health](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/Green-App-Health.png) |
+|CodeDeploy Deployment Start:|
+| ![CodeDeploy Start](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/CodeDeploy-Startup.png) |
+|CodeDeploy Deployment Complete:|
+| ![CodeDeploy Finish](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/CodeDeploy-Finish.png) |
+|WAF Configuration:|
+| ![WAF](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/WAF.png) |
+|VPC Endpoints:|
+| ![VPC Endpoints](https://raw.githubusercontent.com/JunedConnect/project-url-shortener/main/images/VPC-Endpoints.png) |
