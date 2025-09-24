@@ -42,12 +42,7 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 
 ## Setup Instructions
 
-### Prerequisites
-
-- AWS CLI configured with appropriate permissions
-- Terraform installed
-- Docker installed
-- GitHub repository with Actions enabled
+<br>
 
 ### Configuration Steps
 
@@ -66,17 +61,19 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
      - `AWS_GITHUB_ROLE_ARN`: Your GitHub Actions IAM role ARN (e.g., `arn:aws:iam::ACCOUNT:role/github-cicd-role`)
      - `ECR_REGISTRY`: Your ECR registry URL (e.g., `123456789012.dkr.ecr.eu-west-2.amazonaws.com`)
 
+<br>
+
 ### Deployment Steps
 
 **Important**: Follow this exact sequence for proper deployment:
 
 1. **Build and Push InitialBlue Image**
    - Go to GitHub Actions → Docker Build & Push → Run workflow
-   - Choose "InitialBlue" image
+        - Choose "InitialBlue" image
    - This creates the initial version of the app
 
 2. **Deploy Infrastructure**
-   - **Choose one environment** (`dev` or `prod`) and stick with it throughout the deployment
+     **Choose one environment** (`dev` or `prod`) and stick with it throughout the deployment
    - Go to GitHub Actions → Terraform Plan → Run workflow
         - **Review the plan** to ensure everything looks correct
    - Go to GitHub Actions → Terraform Apply → Run workflow
@@ -84,27 +81,29 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 
 3. **Build and Push FinalGreen Image**
    - Go to GitHub Actions → Docker Build & Push → Run workflow
-   - Choose "FinalGreen" image
+        - Choose "FinalGreen" image
    - This creates the production-ready version with all features
 
 4. **Blue-Green Deployment**
-   - Create new ECS task definition with the FinalGreen image digest
+   - Create new ECS task definition with the FinalGreen ECR image digest
    - Use AWS CodeDeploy with the AppSpec template (`deployment/appspectemplate.yml`)
-   - Traffic automatically shifts from blue to green environment, with automatic rollback on health check failures
+   - Traffic automatically shifts from blue to green environment, with rollback on health check failures
 
 5. **Destroy Infrastructure**
-   - **Choose the same environment** used for deployment
+     **Choose the same environment** used for deployment
    - Go to GitHub Actions → Terraform Destroy → Run workflow
    - This will clean up all AWS resources created by Terraform
+
+---
+
+## How to Use the App
+
+<br>
 
 ### App Version Differences
 
 - **InitialBlue**: Basic URL shortening functionality
 - **FinalGreen**: Full-featured version with modern UI
-
----
-
-## How to Use the App
 
 ### Web Interface
 
@@ -167,11 +166,3 @@ curl "https://your-domain.com/healthz"
 ```
 
 ---
-
-## CI/CD Pipeline
-
-- **Docker Build & Push** - Builds images and pushes to ECR with security scanning
-- **Terraform Plan** - Previews infrastructure changes
-- **Terraform Apply** - Deploys infrastructure
-- **Terraform Destroy** - Destroys infrastructure
-
