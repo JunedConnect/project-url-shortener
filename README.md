@@ -15,6 +15,8 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
 
 ---
 
+<br>
+
 ## Architecture
 
 ```
@@ -39,6 +41,8 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 ```
 
 ---
+
+<br>
 
 ## Setup Instructions
 
@@ -95,6 +99,8 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - This will clean up all AWS resources created by Terraform
 
 ---
+
+<br>
 
 ## How to Use the App
 
