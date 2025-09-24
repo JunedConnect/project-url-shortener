@@ -1,6 +1,8 @@
 # Blue-Green Genesis
 
-A containerised URL shortener application deployed on AWS ECS with blue-green deployment strategy. The deployment process is fully automated using a **CI/CD pipeline** that handles Docker image building, vulnerability scanning, and deployment to **different AWS environments** with seperate backend state files.
+This project builds a URL shortener service using AWS ECS with blue-green deployments. The setup includes automated CI/CD pipelines that build Docker images, scan for security issues, and deploy infrastructure across different AWS environments.
+
+The architecture uses separate dev and prod environments with their own Terraform state files, serverless containers with Fargate, and security features like WAF protection. Everything is automated from code changes to production deployment, making it easy to update the application without downtime.
 
 ## Key Features
 
