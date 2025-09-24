@@ -1,8 +1,8 @@
 # Blue-Green Genesis
 
-This project builds a URL shortener service using AWS ECS with blue-green deployments. The setup includes automated CI/CD pipelines that build Docker images, scan for security issues, and deploy infrastructure across different AWS environments.
+This project builds a URL shortener service using AWS ECS with **blue-green deployments (CodeDeploy)**. The setup includes **automated CI/CD pipelines** that build Docker images, scan for security issues, and deploy infrastructure across **different AWS environments**.
 
-The architecture uses separate dev and prod environments with their own Terraform state files, serverless containers with Fargate, and security features like WAF protection. Everything is automated from code changes to production deployment, making it easy to update the application without downtime.
+The architecture uses separate dev and prod environments with their own Terraform state files, serverless containers with Fargate, and security features like WAF protection. **Everything is automated**, from code changes to production deployment, making it easy to update the application without downtime.
 
 ## Key Features
 
