@@ -2,7 +2,7 @@
 
 A containerised URL shortener application deployed on AWS ECS with blue-green deployment strategy.
 
-<br>
+---
 
 ## Key Features
 
@@ -13,7 +13,7 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
 - **DynamoDB** - NoSQL database, utilised by the App, used for URL storage with TTL
 - **VPC Endpoints** - Secure connectivity to AWS services
 
-<br>
+---
 
 ## Architecture
 
@@ -23,11 +23,27 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
                   WAF Protection
 ```
 
-<br>
+### Directory Structure
+
+```
+./
+├── app/
+│   ├── finalgreen/          # Production app version
+│   └── initialblue/         # Initial app version
+├── deployment/
+│   └── appspectemplate.yml  # CodeDeploy configuration
+├── terraform/
+│   ├── environments/        # Dev/Prod configurations
+│   └── modules/            # Infrastructure modules
+└── .github/workflows/      # CI/CD pipelines
+```
+
+---
 
 ## Setup Instructions
 
 ### Prerequisites
+
 - AWS CLI configured with appropriate permissions
 - Terraform installed
 - Docker installed
@@ -60,7 +76,7 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - This creates the initial version of the app
 
 2. **Deploy Infrastructure**
-     **Choose one environment** (`dev` or `prod`) and stick with it throughout the deployment
+   - **Choose one environment** (`dev` or `prod`) and stick with it throughout the deployment
    - Go to GitHub Actions → Terraform Plan → Run workflow
         - **Review the plan** to ensure everything looks correct
    - Go to GitHub Actions → Terraform Apply → Run workflow
@@ -77,7 +93,7 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - Traffic automatically shifts from blue to green environment, with automatic rollback on health check failures
 
 5. **Destroy Infrastructure**
-     **Choose the same environment** used for deployment
+   - **Choose the same environment** used for deployment
    - Go to GitHub Actions → Terraform Destroy → Run workflow
    - This will clean up all AWS resources created by Terraform
 
@@ -86,11 +102,12 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 - **InitialBlue**: Basic URL shortening functionality
 - **FinalGreen**: Full-featured version with modern UI
 
-<br>
+---
 
 ## How to Use the App
 
 ### Web Interface
+
 Access the application through your Route 53 domain to use the web interface for URL shortening.
 
 **Note**: Modern UI is only available in FinalGreen version.
@@ -149,35 +166,12 @@ curl "https://your-domain.com/healthz"
 }
 ```
 
-<br>
-
-## Directory Structure
-
-```
-./
-├── app/
-│   ├── finalgreen/          # Production app version
-│   └── initialblue/         # Initial app version
-├── deployment/
-│   └── appspectemplate.yml  # CodeDeploy configuration
-├── terraform/
-│   ├── environments/        # Dev/Prod configurations
-│   └── modules/            # Infrastructure modules
-└── .github/workflows/      # CI/CD pipelines
-```
-
-<br>
+---
 
 ## CI/CD Pipeline
 
 - **Docker Build & Push** - Builds images and pushes to ECR with security scanning
 - **Terraform Plan** - Previews infrastructure changes
 - **Terraform Apply** - Deploys infrastructure
-- **Terraform Destroy** - Deastroys infrastructure
+- **Terraform Destroy** - Destroys infrastructure
 
-<br>
-
-## Environment Variables
-
-- `TABLE_NAME` - DynamoDB table name
-- `AWS_REGION` - AWS region for DynamoDB access
