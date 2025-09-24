@@ -1,8 +1,6 @@
-# URL Shortener ECS
+# Blue-Green Genesis
 
 A containerised URL shortener application deployed on AWS ECS with blue-green deployment strategy.
-
----
 
 ## Key Features
 
@@ -12,8 +10,6 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
 - **AWS ALB** - Application Load Balancer for traffic routing
 - **DynamoDB** - NoSQL database, utilised by the App, used for URL storage with TTL
 - **VPC Endpoints** - Secure connectivity to AWS services
-
----
 
 <br>
 
@@ -25,8 +21,6 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
                   WAF Protection
 ```
 
-
----
 
 <br>
 
@@ -41,11 +35,9 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 │   └── appspectemplate.yml  # CodeDeploy configuration
 ├── terraform/
 │   ├── environments/        # Dev/Prod configurations
-│   └── modules/            # Infrastructure modules
-└── .github/workflows/      # CI/CD pipelines
+│   └── modules/             # Infrastructure modules
+└── .github/workflows/       # CI/CD pipelines
 ```
-
----
 
 <br>
 
@@ -103,15 +95,10 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - Go to GitHub Actions → Terraform Destroy → Run workflow
    - This will clean up all AWS resources created by Terraform
 
-<br>
-
----
 
 <br>
 
 ## How to Use the App
-
-<br>
 
 ### App Version Differences
 
@@ -158,5 +145,3 @@ curl "https://your-domain.com/{short_id}"
 ```bash
 curl "https://your-domain.com/healthz"
 ```
-
----
