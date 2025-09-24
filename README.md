@@ -40,6 +40,36 @@ A containerised URL shortener application deployed on AWS ECS with blue-green de
 
 <br>
 
+## Justifications
+
+### odeDeploy
+- **Zero-downtime deployments**: Blue-green deployment strategy ensures continuous service availability
+- **Automatic rollback**: Built-in health checks and automatic rollback on deployment failures
+- **Traffic shifting**: Gradual traffic migration from blue to green environment reduces risk of service disruption
+- **Integration**: Seamless integration with ECS and ALB for containerised applications
+
+### VPC Endpoints
+- **Enhanced security**: Private connectivity to AWS services without internet exposure
+- **Cost optimisation**: Eliminates NAT Gateway costs for AWS service communication
+- **Performance**: Lower latency and higher throughput for AWS service calls
+
+### Different AWS Environments?
+- **Risk mitigation**: Isolated dev and prod environments prevent production issues
+- **Testing**: Safe environment for testing changes before production deployment
+- **State isolation**: Separate Terraform state files prevent cross-environment conflicts
+
+### AWS Fargate for ECS
+- **Serverless containers**: No server management or infrastructure overhead
+- **Auto-scaling**: Automatic scaling based on demand and resource utilisation
+- **Cost efficiency**: Pay only for resources used, no idle server costs
+- **Security**: Enhanced security with managed infrastructure and automatic updates
+
+### WAF
+- **Application protection**: Protects against common web exploits and attacks
+- **Custom rules**: Flexible rule configuration for specific application needs
+
+<br>
+
 ## Setup Instructions
 
 <br>
