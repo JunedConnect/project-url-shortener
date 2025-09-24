@@ -25,7 +25,12 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
                   WAF Protection
 ```
 
-### Directory Structure
+
+---
+
+<br>
+
+## Directory Structure
 
 ```
 ./
@@ -98,6 +103,8 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
    - Go to GitHub Actions → Terraform Destroy → Run workflow
    - This will clean up all AWS resources created by Terraform
 
+<br>
+
 ---
 
 <br>
@@ -111,11 +118,15 @@ Internet → Route 53 → ALB → ECS Service (Blue/Green) → DynamoDB
 - **InitialBlue**: Basic URL shortening functionality
 - **FinalGreen**: Full-featured version with modern UI
 
+<br>
+
 ### Web Interface
 
 Access the application through your Route 53 domain to use the web interface for URL shortening.
 
 **Note**: Modern UI is only available in FinalGreen version.
+
+<br>
 
 ### API Endpoints
 
@@ -146,29 +157,6 @@ curl "https://your-domain.com/{short_id}"
 **Health Check** (Available in both versions)
 ```bash
 curl "https://your-domain.com/healthz"
-```
-
-### Response Examples
-
-**Shorten Response:**
-```json
-{
-  "short": "a1b2c3d4",
-  "url": "https://example.com/very/long/url",
-  "created_at": 1640995200,
-  "ttl": 1641081600
-}
-```
-
-**Stats Response:**
-```json
-{
-  "id": "a1b2c3d4",
-  "url": "https://example.com/very/long/url",
-  "created_at": 1640995200,
-  "ttl": 1641081600,
-  "hits": 42
-}
 ```
 
 ---
