@@ -1,5 +1,5 @@
 # image being used is python:3.12-alpine
-FROM python@sha256:2e92c699abecf757ebebc21ffa57b52293f862981073a2243a866cba22174ce9
+FROM python@sha256:02a73ead8397e904cea6d17e18516f1df3590e05dc8823bd5b1c7f849227d272
 
 # TABLE_NAME ENV variable will be provided by ECS
 ENV PYTHONPATH=/app
@@ -14,7 +14,7 @@ COPY ./src/. .
 
 COPY ./tests/. .
 
-RUN useradd dockeruser
+RUN adduser -D dockeruser
 
 RUN chown -R dockeruser .
 
