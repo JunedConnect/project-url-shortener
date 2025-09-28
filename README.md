@@ -1,6 +1,6 @@
 # Blue-Green Genesis
 
-This project demonstrates how to achieve **zero-downtime deployments** in production environments, ensuring your customers never experience service interruptions during updates. By implementing blue-green deployment strategies with AWS CodeDeploy, businesses can deploy new features and fixes seamlessly, leading to **happier customers, reduced downtime, and minimized revenue loss from service disruptions**.
+This project demonstrates how to achieve **zero-downtime deployments** in production environments, ensuring your customers never experience service interruptions during updates. By implementing blue-green deployment strategies with AWS CodeDeploy, businesses can deploy new features and fixes seamlessly, leading to **happier customers, reduced downtime, and minimised revenue loss from service disruptions**.
 
 
 The project builds a URL shortener service using AWS ECS with **blue-green deployments (CodeDeploy)**. The setup includes **automated CI/CD pipelines** that build Docker images, scan for security issues, and deploy infrastructure across **different AWS environments**.
