@@ -19,7 +19,7 @@ on:
 
 jobs:
     terraformplan-dev:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         if: ${{ inputs.environment == 'dev' }}
         defaults:
             run:
@@ -78,7 +78,7 @@ jobs:
 
 
     terraformplan-prod:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         if: ${{ inputs.environment == 'prod' }}
         defaults:
             run:
